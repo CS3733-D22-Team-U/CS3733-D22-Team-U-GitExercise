@@ -1,6 +1,7 @@
 package edu.wpi.team_u.frontEnd;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,9 +20,10 @@ public class Uapp extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) throws IOException {
+  public void start(Stage primaryStage) throws IOException, URISyntaxException {
     Scene scene = getScene("edu/wpi/team_u/views/HomePage.fxml");
     URL a = Uapp.class.getClassLoader().getResource("edu/wpi/team_u/icons/hospitalIcon.png");
+    System.out.println(a.toURI().toString());
     primaryStage.getIcons().add(new Image(String.valueOf(a)));
     primaryStage.setTitle("Mass General Brigham");
     primaryStage.setScene(scene);

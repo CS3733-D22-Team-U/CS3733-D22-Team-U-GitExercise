@@ -1,7 +1,6 @@
 package edu.wpi.team_u;
 
 import edu.wpi.team_u.BackEnd.Udb;
-import edu.wpi.team_u.frontEnd.Uapp;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -20,6 +19,7 @@ public class DBController {
     String csvLocationFile = fromResources("edu/wpi/team_u/csvTables/TowerLocations.csv");
     String csvEmployee = fromResources("edu/wpi/team_u/csvTables/TowerEmployees.csv");
     String csvEquipment = fromResources("edu/wpi/team_u/csvTables/TowerEquipment.csv");
+    System.out.println(csvEmployee);
     String[] CSVfiles = {csvLocationFile, csvEmployee, csvEquipment};
 
     udb.start(username, password, CSVfiles);
@@ -28,6 +28,6 @@ public class DBController {
 
   public static String fromResources(String pathFromResource) throws URISyntaxException {
     URL a = Main.class.getClassLoader().getResource(pathFromResource);
-    return a.toURI().getPath();
+    return a.toURI().toString();
   }
 }

@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 
 public class Main {
   public static void main(String[] args) throws IOException, URISyntaxException {
-    DBController.main(args);
+    //DBController.main(args);
     UIController.main(args);
   }
 }
