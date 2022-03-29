@@ -23,7 +23,6 @@ public class Uapp extends Application {
     Scene scene = getScene("edu/wpi/team_u/views/HomePage.fxml");
     URL a = Uapp.class.getClassLoader().getResource("edu/wpi/team_u/icons/hospitalIcon.png");
     primaryStage.getIcons().add(new Image(String.valueOf(a)));
-    System.out.println(String.valueOf(a));
     primaryStage.setTitle("Mass General Brigham");
     primaryStage.setScene(scene);
     primaryStage.setResizable(false);
