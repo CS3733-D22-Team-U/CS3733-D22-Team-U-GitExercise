@@ -1,6 +1,6 @@
 package edu.wpi.team_u.frontEnd.controllers;
 
-import edu.wpi.team_u.Uapp;
+import edu.wpi.team_u.frontEnd.Uapp;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

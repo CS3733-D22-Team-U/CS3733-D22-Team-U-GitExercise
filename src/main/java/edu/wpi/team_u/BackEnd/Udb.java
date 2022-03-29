@@ -14,21 +14,7 @@ public class Udb {
   private EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
   private EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
 
-  public static void main(String[] args) throws IOException, SQLException {
-    Udb udb = new Udb();
-    String username = args[0];
-    String password = args[1];
-    String csvLocationFile = "src/main/resources/TowerLocations.csv";
-    String csvEmployee = "src/main/resources/TowerEmployees.csv";
-    String csvEquipment = "src/main/resources/TowerEquipment.csv";
-
-    String[] CSVfiles = {csvLocationFile, csvEmployee, csvEquipment};
-
-    udb.start(username, password, CSVfiles);
-  }
-
-  public void start(String username, String password, String[] CSVfiles)
-      throws IOException, SQLException {
+  public void start(String username, String password, String[] CSVfiles) throws IOException {
     locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EquipmentImpl.DB_LOC =
@@ -80,8 +66,6 @@ public class Udb {
 
     EquipmentImpl.CSVToJava(CSVfiles[2]);
     EquipmentImpl.JavaToSQL();
-
-    menu(CSVfiles);
   }
 
   // This function is called in main the starts the menu where a client can access and or change
