@@ -1,11 +1,12 @@
 package edu.wpi.team_u.BackEnd.Equipment;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 public interface EquipmentDao {
 
-  public void CSVToJava(String csvFile) throws IOException;
+  public void CSVToJava(InputStream csvFile) throws IOException;
 
   public void JavaToSQL();
 

@@ -16,11 +16,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
   }
 
   // Takes in a CSV file and converts it to java objects
-  public void CSVToJava(String csvFile) throws IOException {
+  public void CSVToJava(InputStream csvFile) throws IOException {
     employees = new ArrayList<Employee>();
     String s;
-    File file = new File(csvFile);
-    BufferedReader br = new BufferedReader(new FileReader(file));
+    BufferedReader br = new BufferedReader(new InputStreamReader(csvFile));
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
@@ -143,7 +142,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
   public void printEmployeeTableInTerm(String csvFile) throws IOException {
     // csv to java
-    CSVToJava(csvFile);
+    CSVToJava(new FileInputStream(csvFile));
     // display locations and attributes
     System.out.println("Employee ID |\t Occupation |\t Reports |\t On Duty");
     for (Employee employee : employees) {
@@ -174,7 +173,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     System.out.println("Number of new reports: ");
     int inputNewReports = s.nextInt();
 
-    CSVToJava(csvFile); // t
+    CSVToJava(new FileInputStream(csvFile)); // t
     for (int i = 0; i < this.employees.size(); i++) {
       if (this.employees.get(i).employeeID.equals(inputEmployeeID)) {
         this.employees.get(i).occupation = inputNewOccupation;

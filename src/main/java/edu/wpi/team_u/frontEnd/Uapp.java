@@ -23,7 +23,7 @@ public class Uapp extends Application {
   public void start(Stage primaryStage) throws IOException, URISyntaxException {
     Scene scene = getScene("edu/wpi/team_u/views/HomePage.fxml");
     URL a = Uapp.class.getClassLoader().getResource("edu/wpi/team_u/icons/hospitalIcon.png");
-    System.out.println(a.toURI().toString());
+    // System.out.println(f.getPath());
     primaryStage.getIcons().add(new Image(String.valueOf(a)));
     primaryStage.setTitle("Mass General Brigham");
     primaryStage.setScene(scene);

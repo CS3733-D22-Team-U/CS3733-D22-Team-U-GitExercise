@@ -14,7 +14,7 @@ public class Udb {
   private EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
   private EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
 
-  public void start(String username, String password, String[] CSVfiles) throws IOException {
+  public void start(String username, String password, InputStream[] CSVfiles) throws IOException {
     locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EquipmentImpl.DB_LOC =

@@ -16,11 +16,10 @@ public class LocationDaoImpl implements LocationDao {
   }
 
   // Takes in a CSV file and converts it to java objects
-  public void CSVToJava(String csvFile) throws IOException {
+  public void CSVToJava(InputStream csvFile) throws IOException {
     locations = new ArrayList<Location>();
     String s;
-    File file = new File(csvFile);
-    BufferedReader br = new BufferedReader(new FileReader(file));
+    BufferedReader br = new BufferedReader(new InputStreamReader(csvFile));
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
@@ -188,7 +187,7 @@ public class LocationDaoImpl implements LocationDao {
 
   public void printLocTableInTerm(String csvFile) throws IOException {
     // csv to java
-    this.CSVToJava(csvFile);
+    this.CSVToJava(new FileInputStream(csvFile));
     // display locations and attributes
     System.out.println(
         "Node |\t X |\t Y |\t Level |\t Building |\t Type |\t Long Name |\t Short Name");
@@ -227,7 +226,7 @@ public class LocationDaoImpl implements LocationDao {
     // input new location type
     System.out.println("New location type");
     String inputNewType = s.nextLine();
-    this.CSVToJava(csvFile); // t
+    this.CSVToJava(new FileInputStream(csvFile)); // t
     for (int i = 0; i < this.locations.size(); i++) {
       if (this.locations.get(i).nodeID.equals(inputNodeID)) {
         this.locations.get(i).floor = inputNewFloor;
