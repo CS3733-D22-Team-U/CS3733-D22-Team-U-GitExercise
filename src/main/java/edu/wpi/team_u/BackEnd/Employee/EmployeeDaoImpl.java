@@ -309,6 +309,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
    * @throws SQLException
    */
   public void editEmployee(String csvFile, String inputEmployeeID, String inputNewOccupation, int inputNewReports) throws IOException, SQLException {
+  public void editEmployee(InputStream csvFile, String inputEmployeeID, String inputNewOccupation, int inputNewReports) throws IOException, SQLException {
     // takes entries from SQL table that match input id and updates it with
     // a new occupation
     // a new number of reports

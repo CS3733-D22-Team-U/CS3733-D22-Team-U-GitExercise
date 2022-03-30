@@ -21,7 +21,6 @@ public class Udb {
   private EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
 
 <<<<<<< HEAD
-  public void start(String username, String password, InputStream[] CSVfiles) throws IOException {
 =======
   public static void main(String[] args) throws IOException, SQLException {
     Udb udb = new Udb();
@@ -39,6 +38,7 @@ public class Udb {
   public void start(String username, String password, String[] CSVfiles)
           throws IOException, SQLException {
 >>>>>>> 40cdb6e83b70fee1f789ff632a6f5c92a3992785
+  public void start(String username, String password, InputStream[] CSVfiles) throws IOException {
     locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EmployeeImpl.DB_LOC = EmployeeImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
     EquipmentImpl.DB_LOC =
