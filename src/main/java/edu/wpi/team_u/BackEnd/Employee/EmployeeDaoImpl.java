@@ -1,6 +1,7 @@
 package edu.wpi.team_u.BackEnd.Employee;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,8 +25,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
   public void CSVToJava(String csvFile) throws IOException {
     employees = new ArrayList<Employee>();
     String s;
-    File file = new File(csvFile);
-    BufferedReader br = new BufferedReader(new FileReader(file));
+    BufferedReader br = new BufferedReader(new InputStreamReader(fileToInput(csvFile)));
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
@@ -177,8 +177,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
   }
 
-
-  //-----------------------------Start of debugging backend functions------------------------------//
+  // -----------------------------Start of debugging backend
+  // functions------------------------------//
 
   /**
    * editEmployee: makes a SQL table from the given CSV filepath, then prompts for an ID and updates
@@ -213,7 +213,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
     this.JavaToSQL(); // t
     this.SQLToJava(); // t
-    this.JavaToCSV(csvFile); // t
+    this.JavaToCSV(pathFromResources(csvFile)); // t
   }
 
   /**
@@ -234,7 +234,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     this.employees.add(newEmployee);
     this.JavaToSQL();
     this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    this.JavaToCSV(pathFromResources(csvFile));
   }
 
   /**
@@ -258,7 +258,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
     this.JavaToSQL();
     this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    this.JavaToCSV(pathFromResources(csvFile));
   }
 
   /**
@@ -284,16 +284,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
   }
 
-  //-----------------------------End of debugging backend functions------------------------------//
+  // -----------------------------End of debugging backend functions------------------------------//
 
-
-
-
-
-
-
-
-  //-----------------------------Start of frontend backend functions------------------------------//
+  // -----------------------------Start of frontend backend
+  // functions------------------------------//
 
   /**
    * editEmployee: makes a SQL table from the given CSV filepath, then prompts for an ID and updates
@@ -304,7 +298,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
    * @throws IOException
    * @throws SQLException
    */
-  public void editEmployee(String csvFile, String inputEmployeeID, String inputNewOccupation, int inputNewReports) throws IOException, SQLException {
+  public void editEmployee(
+      String csvFile, String inputEmployeeID, String inputNewOccupation, int inputNewReports)
+      throws IOException, SQLException {
     // takes entries from SQL table that match input id and updates it with
     // a new occupation
     // a new number of reports
@@ -318,7 +314,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
     this.JavaToSQL(); // t
     this.SQLToJava(); // t
-    this.JavaToCSV(csvFile); // t
+    this.JavaToCSV(pathFromResources(csvFile)); // t
   }
 
   /**
@@ -348,7 +344,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
    * @throws IOException
    * @throws SQLException
    */
-  public void removeEmployee(String csvFile, String userEmployeeID) throws IOException, SQLException {
+  public void removeEmployee(String csvFile, String userEmployeeID)
+      throws IOException, SQLException {
     // removes entries from SQL table that match input node
     // prompt for ID
 
@@ -378,6 +375,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     } catch (IOException e) {
       System.out.println(e.fillInStackTrace());
+    }
+  }
+
+  private InputStream fileToInput(String csvFile) {
+    return getClass().getClassLoader().getResourceAsStream(csvFile);
+  }
+
+  private String pathFromResources(String csvFile) {
+    try {
+      return getClass().getClassLoader().getResource(csvFile).toURI().getPath();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+      return null;
     }
   }
 }

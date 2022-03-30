@@ -49,9 +49,6 @@ jar {
     manifest {
         attributes "Main-Class": "$mainClassName"
     }
-    from('src/main') {
-        include  '/resources/'
-    }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }

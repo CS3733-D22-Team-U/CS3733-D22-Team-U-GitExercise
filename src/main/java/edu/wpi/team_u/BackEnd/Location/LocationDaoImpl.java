@@ -1,6 +1,7 @@
 package edu.wpi.team_u.BackEnd.Location;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -30,8 +31,7 @@ public class LocationDaoImpl implements LocationDao {
   public void CSVToJava(String csvFile) throws IOException {
     locations = new ArrayList<Location>();
     String s;
-    File file = new File(csvFile);
-    BufferedReader br = new BufferedReader(new FileReader(file));
+    BufferedReader br = new BufferedReader(new InputStreamReader(fileToInput(csvFile)));
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
@@ -279,10 +279,11 @@ public class LocationDaoImpl implements LocationDao {
     }
     this.JavaToSQL();
     this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    this.JavaToCSV(pathFromResources(csvFile));
   }
 
-  public void editLocValue(String nodeID, String floor, String nodeType, String csvFile) throws IOException, SQLException {
+  public void editLocValue(String nodeID, String floor, String nodeType, String csvFile)
+      throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID
@@ -315,7 +316,7 @@ public class LocationDaoImpl implements LocationDao {
     this.locations.add(newLocation);
     this.JavaToSQL();
     this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    this.JavaToCSV(pathFromResources(csvFile));
   }
 
   public void addLoc(String nodeID, String csvFile) throws IOException, SQLException {
@@ -348,7 +349,7 @@ public class LocationDaoImpl implements LocationDao {
     }
     this.JavaToSQL();
     this.SQLToJava();
-    this.JavaToCSV(csvFile);
+    this.JavaToCSV(pathFromResources(csvFile));
   }
 
   public void removeLoc(String nodeID, String csvFile) throws IOException, SQLException {
@@ -400,6 +401,20 @@ public class LocationDaoImpl implements LocationDao {
 
     } catch (IOException e) {
       System.out.println(e.fillInStackTrace());
+    }
+  }
+
+  private InputStream fileToInput(String csvFile) {
+    return getClass().getClassLoader().getResourceAsStream(csvFile);
+  }
+
+  private String pathFromResources(String csvFile) {
+    try {
+      // System.out.println(getClass().getClassLoader().getResource(csvFile).toURI().getPath());
+      return getClass().getClassLoader().getResource(csvFile).toURI().getPath();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+      return null;
     }
   }
 }

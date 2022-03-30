@@ -1,6 +1,7 @@
 package edu.wpi.team_u.BackEnd.Equipment;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -27,8 +28,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
   public void CSVToJava(String csvFile) throws IOException {
     EquipmentList = new ArrayList<Equipment>();
     String s;
-    File file = new File(csvFile);
-    BufferedReader br = new BufferedReader(new FileReader(file));
+    BufferedReader br = new BufferedReader(new InputStreamReader(fileToInput(csvFile)));
     br.readLine();
     while ((s = br.readLine()) != null) {
       String[] row = s.split(",");
@@ -185,10 +185,8 @@ public class EquipmentDaoImpl implements EquipmentDao {
     // menu
   }
 
-
-
-
-  //-------------------------------Start of debugging backend functions------------------------------------------//
+  // -------------------------------Start of debugging backend
+  // functions------------------------------------------//
 
   /**
    * Asks user for name of item they wish to edit and then ask to change the total amount and the
@@ -211,7 +209,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
     // input new location type
     System.out.println("How many in use? ");
     String inputInUse = s.nextLine();
-    this.CSVToJava(csvFile); // t
+    this.CSVToJava(pathFromResources(csvFile)); // t
     for (int i = 0; i < this.EquipmentList.size(); i++) {
       if (this.EquipmentList.get(i).getName().equals(inputName)) {
         this.EquipmentList.get(i).Amount = Integer.parseInt(inputNewAmount);
@@ -293,25 +291,23 @@ public class EquipmentDaoImpl implements EquipmentDao {
     }
   }
 
-  //-------------------------------End of debugging backend functions------------------------------------------//
+  // -------------------------------End of debugging backend
+  // functions------------------------------------------//
 
-
-
-
-
-
-
-
-  //-------------------------------Start of frontend to backend functions------------------------------------------//
+  // -------------------------------Start of frontend to backend
+  // functions------------------------------------------//
 
   /**
-   * Asks user for name of item they wish to edit and then ask to change
-   * the total amount and the amount in use, Then changes the values in the database and csv file
+   * Asks user for name of item they wish to edit and then ask to change the total amount and the
+   * amount in use, Then changes the values in the database and csv file
+   *
    * @param csvFile
    * @throws IOException
    * @throws SQLException
    */
-  public void editEquipValue(String csvFile, String inputName, String inputNewAmount, String inputInUse) throws IOException, SQLException {
+  public void editEquipValue(
+      String csvFile, String inputName, String inputNewAmount, String inputInUse)
+      throws IOException, SQLException {
     // takes entries from SQL table that match input node and updates it with a new floor and
     // location type
     // input ID
@@ -331,6 +327,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
   /**
    * Prompts user for the name of a new item and then adds it to the csv file and database
+   *
    * @param csvFile
    * @throws IOException
    * @throws SQLException
@@ -347,8 +344,9 @@ public class EquipmentDaoImpl implements EquipmentDao {
   }
 
   /**
-   * Prompts user for the name of the item they wish to remove and then removes that item
-   * from the database and csv file
+   * Prompts user for the name of the item they wish to remove and then removes that item from the
+   * database and csv file
+   *
    * @param csvFile
    * @throws IOException
    * @throws SQLException
@@ -370,6 +368,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
   /**
    * Prompts user for the name of a new file and then creates the new file in the project folder
    * then it copies the database table: EquipmentList into the CSV file
+   *
    * @throws SQLException
    */
   public void saveEquipTableAsCSV(String CSVName) throws SQLException {
@@ -384,6 +383,19 @@ public class EquipmentDaoImpl implements EquipmentDao {
 
     } catch (IOException e) {
       System.out.println(e.fillInStackTrace());
+    }
+  }
+
+  private InputStream fileToInput(String csvFile) {
+    return getClass().getClassLoader().getResourceAsStream(csvFile);
+  }
+
+  private String pathFromResources(String csvFile) {
+    try {
+      return getClass().getClassLoader().getResource(csvFile).toURI().getPath();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+      return null;
     }
   }
 }
