@@ -2,7 +2,11 @@ package edu.wpi.team_u.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+<<<<<<< HEAD
 import edu.wpi.team_u.frontEnd.Uapp;
+=======
+import edu.wpi.team_u.Uapp;
+>>>>>>> 40cdb6e83b70fee1f789ff632a6f5c92a3992785
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
