@@ -6,17 +6,29 @@ package edu.wpi.cs3733.D22.teamU.BackEnd;
  */
 import edu.wpi.cs3733.D22.teamU.BackEnd.Employee.EmployeeDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Equipment.EquipmentDaoImpl;
+import edu.wpi.cs3733.D22.teamU.BackEnd.EquipmentRequest.RequestDaoImpl;
 import edu.wpi.cs3733.D22.teamU.BackEnd.Location.LocationDaoImpl;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.util.Scanner;
 
 public class Udb {
 
   public String DB_LOC = "jdbc:derby:UDB;";
-  private LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
-  private EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
-  private EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
+  public LocationDaoImpl locationImpl = new LocationDaoImpl(DB_LOC);
+  public EquipmentDaoImpl EquipmentImpl = new EquipmentDaoImpl(DB_LOC);
+  public EmployeeDaoImpl EmployeeImpl = new EmployeeDaoImpl(DB_LOC);
+  public RequestDaoImpl requestEquipImpl = new RequestDaoImpl(DB_LOC);
+
+  public static String copyFile(InputStream inputPath, String outputPath) throws IOException {
+    File f = new File(outputPath);
+    f.createNewFile();
+    Files.copy(inputPath, f.getAbsoluteFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
+    inputPath.close();
+    return outputPath;
+  }
 
   public Udb(String username, String password, String[] CSVfiles) throws IOException, SQLException {
     locationImpl.DB_LOC = locationImpl.DB_LOC + "user=" + username + ";password=" + password + ";";
@@ -70,6 +82,9 @@ public class Udb {
 
     EquipmentImpl.CSVToJava(CSVfiles[2]);
     EquipmentImpl.JavaToSQL();
+    requestEquipImpl.CSVToJava(CSVfiles[3]);
+
+    // menu(CSVfiles);
   }
 
   // This function is called in main the starts the menu where a client can access and or change
