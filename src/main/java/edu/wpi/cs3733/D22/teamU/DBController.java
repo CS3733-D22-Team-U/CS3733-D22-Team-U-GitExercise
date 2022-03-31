@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.sql.SQLException;
 
 public class DBController {
+  public static Udb udb;
 
   public static void main(String[] args) throws IOException, SQLException {
     String username, password;
@@ -36,10 +37,27 @@ public class DBController {
             .getClassLoader()
             .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipment.csv");
     String equipment = copyFile(csvEquipment, "csvTables/TowerEquipment.csv");
+    InputStream csvRequest =
+        Main.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipmentRequests.csv");
+    String request = copyFile(csvRequest, "csvTables/TowerEquipmentRequests.csv");
 
-    String[] CSVfiles = {location, employee, equipment};
+    // -----------------------Test Files----------------------
+    InputStream csvLocationFileTest =
+        Main.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TESTTowerLocations.csv");
+    String locationTest = copyFile(csvLocationFile, "csvTables/TESTTowerLocations.csv");
+    InputStream csvEquipmentTest =
+        Main.class
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/cs3733/D22/teamU/csvTables/TESTTowerEquipment.csv");
+    String equipmentTest = copyFile(csvEquipment, "csvTables/TESTTowerEquipment.csv");
 
-    Udb udb = new Udb(username, password, CSVfiles);
+    String[] CSVfiles = {location, employee, equipment, request, locationTest, equipmentTest};
+
+    udb = new Udb(username, password, CSVfiles);
 
     // udb.menu(CSVfiles); //Uncomment this to start terminal menu
   }
@@ -48,7 +66,8 @@ public class DBController {
     File f = new File(outputPath);
     // f.createNewFile();
     try {
-      Files.copy(inputPath, f.getAbsoluteFile().toPath());
+      Files.copy(
+          inputPath, f.getAbsoluteFile().toPath()); // todo remove replace existing after testing
     } catch (Exception e) {
       // Doesn't override if files already exist
     }
