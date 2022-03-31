@@ -50,7 +50,7 @@ public class DBController {
     try {
       Files.copy(inputPath, f.getAbsoluteFile().toPath());
     } catch (Exception e) {
-      //Doesn't override if files already exist
+      // Doesn't override if files already exist
     }
     inputPath.close();
     return outputPath;

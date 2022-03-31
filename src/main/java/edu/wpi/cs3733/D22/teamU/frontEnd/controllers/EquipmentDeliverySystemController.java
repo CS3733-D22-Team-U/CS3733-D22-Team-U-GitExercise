@@ -94,4 +94,21 @@ public class EquipmentDeliverySystemController implements Initializable, IServic
     appStage.setScene(scene);
     appStage.show();
   }
+
+  public void increase() throws IOException {
+    try {
+
+      udb.EquipmentImpl.editEquipValue(
+          "edu/wpi/cs3733/D22/teamU/csvTables/TowerEquipment.csv",
+          "Masks",
+          udb.EquipmentImpl.EquipmentList.get(1).getAmount() + 1,
+          udb.EquipmentImpl.EquipmentList.get(1).getInUse() + 1);
+
+      System.out.println(udb.EquipmentImpl.EquipmentList.get(1).getAmount());
+      getEquipmentList();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    table.refresh();
+  }
 }

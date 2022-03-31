@@ -1,10 +1,10 @@
-package edu.wpi.team_u.frontEnd.controllers;
+package edu.wpi.cs3733.D22.teamU.frontEnd.controllers;
 
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-import edu.wpi.team_u.Uapp;
-import edu.wpi.team_u.frontEnd.services.IService;
+import edu.wpi.cs3733.D22.teamU.frontEnd.Uapp;
+import edu.wpi.cs3733.D22.teamU.frontEnd.services.IService;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;

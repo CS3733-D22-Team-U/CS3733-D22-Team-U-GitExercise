@@ -68,22 +68,22 @@
             <TextField fx:id="roomField" layoutX="118.0" layoutY="200.0" />
             <ImageView fitHeight="85.0" fitWidth="69.0" layoutX="171.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../Desktop/CS/icons/bouquet.png" />
+                  <Image url="@../images/bouquet.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="110.0" fitWidth="86.0" layoutX="410.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../Desktop/TransparentPlant.png" />
+                  <Image url="@../images/TransparentPlant.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="110.0" fitWidth="86.0" layoutX="288.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../../Applications/TransparentBalloon.png" />
+                  <Image url="@../../../../../../../../../../../../../Applications/TransparentBalloon.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="110.0" fitWidth="122.0" layoutX="7.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../Desktop/GiftBasket.png" />
+                  <Image url="@../images/GiftBasket.png" />
                </image>
             </ImageView>
          </children>
